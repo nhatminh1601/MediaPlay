@@ -5,4 +5,8 @@
         android:icon="@drawable/ic_radio_white"
         android:title="nguon"
         app:showAsAction="always"/>
+    <item android:id="@+id/dsbh"
+        android:icon="@drawable/ic_list_black_24dp"
+        android:title="nguon"
+        app:showAsAction="always"/>
 </menu>

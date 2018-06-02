@@ -1,6 +1,7 @@
 package com.example.nguye.mediaplayer;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnnext, btnprevi, btnplay;
     SeekBar sksong;
     TextView txttitle,txttimebegin, txttimetong;
-    ArrayList<ModelSong> mdata;
-    int Position=0;
-    MediaPlayer mediaPlayer;
+    Intent intents;
+   public ArrayList<ModelSong> mdata;
+    public static int Position=0;
+    public static int flagdd=0;
+    public  static MediaPlayer mediaPlayer;
     Animation animation,animation1;
     ImageView disk;
     @Override
@@ -39,12 +44,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Process();
-        GetAllSong();
+        mdata=GetAllSong();
         Action();
         ProcessSeebar();
         animation= AnimationUtils.loadAnimation(this,R.anim.disk_rotate);
         animation1= AnimationUtils.loadAnimation(this,R.anim.stop);
+        intents=getIntent();
 
+        if(intents.getExtras()!=null){
+            Position=intents.getExtras().getInt("position");
+            khoitao();
+            mediaPlayer.start();
+            disk.startAnimation(animation);
+            btnplay.setImageResource(R.drawable.ic_pause_black_24dp);
+
+        }
 
 
     }
@@ -69,13 +83,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void GetAllSong() {
-        mdata=new ArrayList<>();
+    public ArrayList<ModelSong> GetAllSong() {
+        ArrayList<ModelSong> mdata=new ArrayList<>();
         mdata.add(new ModelSong("Cùng anh","Unknow","pop",R.raw.cunganh));
         mdata.add(new ModelSong("Đừng xin lỗi nữa","Unknow","pop",R.raw.dungxinloinua));
         mdata.add(new ModelSong("Em mới là người anh yêu","Unknow","pop",R.raw.emmoilanguoiyeuanh));
         mdata.add(new ModelSong("Over You","Unknow","pop",R.raw.overyou));
-
+        return mdata;
     }
 
     private void Action() {
@@ -185,10 +199,18 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nguon:
                 stop();
                 return true;
+            case R.id.dsbh:
+                Danhsachbh();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void Danhsachbh() {
+        Intent intent=new Intent(this,ListSong.class);
+        startActivity(intent);
     }
 
     public void Updatetime(){
@@ -223,4 +245,5 @@ public class MainActivity extends AppCompatActivity {
             }
         },100);
     }
+
 }

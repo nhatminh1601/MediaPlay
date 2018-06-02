@@ -2,13 +2,15 @@ package com.example.nguye.mediaplayer;
 
 public class ModelSong {
     private String title,singer,category;
-    private int url;
+    private int url,img;
+
 
     public ModelSong(String title, String singer, String category, int url) {
         this.title = title;
         this.singer = singer;
         this.category = category;
         this.url = url;
+
     }
 
     public String getTitle() {
@@ -42,4 +44,5 @@ public class ModelSong {
     public void setUrl(int url) {
         this.url = url;
     }
+
 }

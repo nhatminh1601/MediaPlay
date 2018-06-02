@@ -6,12 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/bg">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toobar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/toodbar"></android.support.v7.widget.Toolbar>
+    <include layout="@layout/mytoobar"/>
     <TextView
         android:id="@+id/tenbh"
         android:text="Trong tim em"
@@ -60,8 +55,10 @@
         app:srcCompat="@drawable/ic_skip_next_black_24dp" />
 
     <SeekBar
+        android:progressDrawable="@drawable/see_bar"
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
+        android:thumb="@drawable/ic_touch_app_black_24dp"
         android:max="100"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
