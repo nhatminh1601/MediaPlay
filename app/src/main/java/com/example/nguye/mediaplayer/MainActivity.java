@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         sksong.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mediaPlayer.seekTo(sksong.getProgress());
+
             }
 
             @Override
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                mediaPlayer.seekTo(sksong.getProgress());
             }
         });
     }
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     btnplay.setImageResource(R.drawable.ic_pause_black_24dp);
                     disk.startAnimation(animation);
+
                 }
 
             }
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void Process() {
         toolbar=findViewById(R.id.my_toobar);
+        toolbar.setTitle("Music");
         setSupportActionBar(toolbar);
         btnnext=findViewById(R.id.next);
         btnplay=findViewById(R.id.play);
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 SimpleDateFormat formatgio=new SimpleDateFormat("mm:ss");
                 txttimebegin.setText(formatgio.format(mediaPlayer.getCurrentPosition()));
                 sksong.setProgress(mediaPlayer.getCurrentPosition());
-                handler.postDelayed(this,500);
+                handler.postDelayed(this,100);
                 // kiểm tra thời gian bài hat kết thuc ---> chuyển bài
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override

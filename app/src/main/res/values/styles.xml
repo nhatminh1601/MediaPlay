@@ -9,7 +9,7 @@
         <item name="android:colorPrimaryDark">@color/backgroud</item>
     </style>
     <style name="toodbar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textSize">18sp</item>
     </style>
 
