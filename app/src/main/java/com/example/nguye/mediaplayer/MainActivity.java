@@ -10,15 +10,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,12 +36,14 @@ public class MainActivity extends AppCompatActivity {
     SeekBar sksong;
     TextView txttitle,txttimebegin, txttimetong;
     Intent intents;
+    GestureDetector gestureDetector;
    public ArrayList<ModelSong> mdata;
     public static int Position=0;
     public static int flagdd=0;
     public  static MediaPlayer mediaPlayer;
     Animation animation,animation1;
     ImageView disk;
+    RelativeLayout main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +64,27 @@ public class MainActivity extends AppCompatActivity {
             btnplay.setImageResource(R.drawable.ic_pause_black_24dp);
 
         }
+        gestureDetector=new GestureDetector(this,new MyGesture());
+        main=findViewById(R.id.mains);
+        main.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
 
 
+    }
+    class MyGesture extends GestureDetector.SimpleOnGestureListener{
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e1.getX()-e2.getX()>100 && Math.abs(velocityX)>100){
+                Danhsachbh();
+            }
+            Log.d("test","e1: "+e1.getX()+ "  e2: "+ e2.getX() +" giatri: "+ velocityX);
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
     }
 
     private void ProcessSeebar() {
